@@ -14,7 +14,6 @@
 *-prof
 *-profiling
 *-devel
-*.e
 *.nav
 *.log
 *.aux
