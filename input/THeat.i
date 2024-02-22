@@ -1,0 +1,93 @@
+!include Parameters.i
+
+[Mesh]
+  type = FileMesh
+  file = ../mesh/vac_oval_coil_solid_target_coarse.e
+  second_order = true
+[]
+
+[Variables]
+  [T]
+    family = LAGRANGE
+    order = FIRST
+    initial_condition = ${room_temperature}
+  []
+[]
+
+[AuxVariables]
+  [P]
+    family = MONOMIAL
+    order = CONSTANT
+  []
+[]
+
+[Kernels]
+  [HeatConduction]
+    type = HeatConduction
+    variable = T
+  []
+  [TimeDerivative]
+    type = HeatConductionTimeDerivative
+    variable = T
+  []
+  [HeatSource]
+    type = CoupledForce
+    variable = T
+    v = P
+  []
+[]
+
+[Materials]
+  [copper]
+    type = GenericConstantMaterial
+    prop_names =  'thermal_conductivity    specific_heat      density'
+    prop_values = '${copper_tconductivity} ${copper_capacity} ${copper_density}'
+    block = 'coil target'
+  []
+  [vacuum]
+    type = GenericConstantMaterial
+    prop_names =  'thermal_conductivity    specific_heat      density'
+    prop_values = '${vacuum_tconductivity} ${vacuum_capacity} ${vacuum_density}'
+    block = vacuum_region
+  []
+[]
+
+[BCs]
+  [plane]
+    type = DirichletBC
+    variable = T
+    boundary = 'coil_in coil_out terminal_plane'
+    value = ${room_temperature}
+  []
+[]
+
+[Executioner]
+  type = Transient
+  solve_type = LINEAR
+  petsc_options_iname = -pc_type
+  petsc_options_value = hypre
+  start_time = 0.0
+  end_time = ${end_t}
+  dt = ${delta_t}
+[]
+
+[Outputs]
+  exodus = true
+[]
+
+[MultiApps]
+  [AForm]
+    type = TransientMultiApp
+    input_files = AForm.i
+    execute_on = timestep_begin
+  []
+[]
+
+[Transfers]
+  [pull_potential]
+    type = MultiAppCopyTransfer
+    from_multi_app = AForm
+    source_variable = P
+    variable = P
+  []
+[]
