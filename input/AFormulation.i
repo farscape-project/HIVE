@@ -89,8 +89,9 @@
   solve_type = LINEAR
   petsc_options_iname = -pc_type
   petsc_options_value = lu
-  start_time = 0.0
-  end_time = 0.5
+#  start_time = 0.0
+ # end_time = 0.5
+  num_steps = 1
   dt = 0.05
 []
 
