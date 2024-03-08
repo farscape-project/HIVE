@@ -33,11 +33,11 @@
     coeff = 1.68e-8
     block = target
   []
-  [curlcurlA_air_coil]
+  [curlcurlA_coil_vacuum]
     type = CurlCurlField
     variable = A
     coeff = 1
-    block = 'vacuum_region coil'
+    block = 'coil vacuum_region'
   []
   [dAdt]
     type = VectorTimeDerivative
@@ -58,12 +58,14 @@
     variable = E
     vector_variable = A
     execute_on = timestep_end
+    block = target
   []
   [P]
     type = JouleHeatingAux
     variable = P
     electric_field = E
     execute_on = timestep_end
+    block = target
   []
 []
 
@@ -71,7 +73,7 @@
   [copper]
     type = GenericConstantMaterial
     prop_names = electrical_conductivity
-    prop_values = 1
+    prop_values = 5.96e7
   []
 []
 
@@ -89,10 +91,7 @@
   solve_type = LINEAR
   petsc_options_iname = -pc_type
   petsc_options_value = lu
-#  start_time = 0.0
- # end_time = 0.5
   num_steps = 1
-  dt = 0.05
 []
 
 [Outputs]
@@ -100,9 +99,9 @@
 []
 
 [MultiApps]
-  [VCoil]
+  [VPoisson]
     type = FullSolveMultiApp
-    input_files = VCoil.i
+    input_files = VPoisson.i
     execute_on = initial
   []
 []
@@ -112,7 +111,7 @@
     type = MultiAppCopyTransfer
 
     # Transfer from the sub-app to this app
-    from_multi_app = VCoil
+    from_multi_app = VPoisson
 
     # The name of the variable in the sub-app
     source_variable = V

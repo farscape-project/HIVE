@@ -8,7 +8,7 @@
   [T]
     family = LAGRANGE
     order = SECOND
-    initial_condition = 298
+    initial_condition = 298.15
   []
 []
 
@@ -20,67 +20,63 @@
 []
 
 [Kernels]
-
- active = 'HeatConduction TimeDerivative HeatSource'
-
   [HeatConduction]
     type = HeatConduction
     variable = T
-  #  block = 'target'
   []
-
   [TimeDerivative]
-    type = TimeDerivative
+    type = HeatConductionTimeDerivative
     variable = T
-  #  block = 'target'
   []
-
   [HeatSource]
     type = CoupledForce
     variable = T
     v = P
-   # block = 'target'
-  []
-
-  [null]
-    type = NullKernel
-    variable = T
-    block = 'coil vacuum_region'
   []
 []
-
 
 [Materials]
-  [thermal]
-    type = HeatConductionMaterial
-    thermal_conductivity = 1.0
+  [copper]
+    type = GenericConstantMaterial
+    prop_names =  'thermal_conductivity specific_heat density'
+    prop_values = '398.0                385.0         8.96e3' 
+    block = 'coil target'
+  []
+  [vacuum]
+    type = GenericConstantMaterial
+    prop_names =  'thermal_conductivity specific_heat density'
+    prop_values = '0.0                  0.0           0.0' 
+    block = vacuum_region
   []
 []
 
-
 [BCs]
-  [temp_bc]
+  [plane]
     type = DirichletBC
     variable = T
     boundary = 'coil_in coil_out terminal_face'
-    value = 298
+    value = ${Variables/T/initial_condition}
   []
 []
 
 [Executioner]
   type = Transient
   solve_type = LINEAR
-  petsc_options_iname = '-pc_type -ksp_rtol'
-  petsc_options_value = 'hypre    1e-12'
+  petsc_options_iname = -pc_type
+  petsc_options_value = hypre
   start_time = 0.0
   end_time = 0.5
   dt = 0.05
 []
 
+[Outputs]
+  exodus = true
+[]
+
 [MultiApps]
-  [AFormulation]
+  [AForm]
     type = TransientMultiApp
-    input_files = AFormulation.i
+    input_files = AForm.i
     execute_on = timestep_begin
   []
 []
@@ -90,7 +86,7 @@
     type = MultiAppCopyTransfer
 
     # Transfer from the sub-app to this app
-    from_multi_app = AFormulation
+    from_multi_app = AForm
 
     # The name of the variable in the sub-app
     source_variable = P
