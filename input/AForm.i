@@ -99,9 +99,9 @@
 []
 
 [MultiApps]
-  [VPoisson]
+  [VLaplace]
     type = FullSolveMultiApp
-    input_files = VPoisson.i
+    input_files = VLaplace.i
     execute_on = initial
   []
 []
@@ -111,7 +111,7 @@
     type = MultiAppCopyTransfer
 
     # Transfer from the sub-app to this app
-    from_multi_app = VPoisson
+    from_multi_app = VLaplace
 
     # The name of the variable in the sub-app
     source_variable = V
