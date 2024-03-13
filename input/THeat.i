@@ -1,3 +1,5 @@
+!include Constants.i
+
 [Mesh]
   type = FileMesh
   file = ../mesh/vac_meshed_oval_coil_and_solid_target.e
@@ -8,7 +10,7 @@
   [T]
     family = LAGRANGE
     order = SECOND
-    initial_condition = 298.15
+    initial_condition = ${room_temperature}
   []
 []
 
@@ -38,14 +40,14 @@
 [Materials]
   [copper]
     type = GenericConstantMaterial
-    prop_names =  'thermal_conductivity specific_heat density'
-    prop_values = '398.0                385.0         8.96e3' 
+    prop_names =  'thermal_conductivity    specific_heat      density'
+    prop_values = '${copper_tconductivity} ${copper_capacity} ${copper_density}'
     block = 'coil target'
   []
   [vacuum]
     type = GenericConstantMaterial
-    prop_names =  'thermal_conductivity specific_heat density'
-    prop_values = '0.0                  0.0           0.0' 
+    prop_names =  'thermal_conductivity    specific_heat      density'
+    prop_values = '${vacuum_tconductivity} ${vacuum_capacity} ${vacuum_density}'
     block = vacuum_region
   []
 []
@@ -55,7 +57,7 @@
     type = DirichletBC
     variable = T
     boundary = 'coil_in coil_out terminal_face'
-    value = ${Variables/T/initial_condition}
+    value = ${room_temperature}
   []
 []
 
