@@ -1,3 +1,5 @@
+!include Constants.i
+
 [Mesh]
   type = FileMesh
   file = ../mesh/vac_meshed_oval_coil_and_solid_target.e
@@ -27,27 +29,35 @@
 []
 
 [Kernels]
-  [curlcurlA_target]
+  [curlcurlA_coil_target]
     type = CurlCurlField
     variable = A
-    coeff = 1.68e-8
+    coeff = ${copper_reluctivity}
+    block = 'coil target'
+  []
+  [curlcurlA_vacuum]
+    type = CurlCurlField
+    variable = A
+    coeff = ${vacuum_reluctivity}
+    block = vacuum_region
+  []
+  [dAdt_target]
+    type = CoefVectorTimeDerivative
+    variable = A
+    Coefficient = ${copper_econductivity}
     block = target
   []
-  [curlcurlA_coil_vacuum]
-    type = CurlCurlField
+  [dAdt_coil_vacuum]
+    type = CoefVectorTimeDerivative
     variable = A
-    coeff = 1
+    Coefficient = ${vacuum_econductivity}
     block = 'coil vacuum_region'
-  []
-  [dAdt]
-    type = VectorTimeDerivative
-    variable = A
   []
   [gradV]
     type = CoupledGrad
     variable = A
     coupled_scalar_variable = V
-    function = 5*(1-cos(2*pi/.5*t))
+    function = ${copper_econductivity}*${voltage_amplitude}*(1-cos(${voltage_frequency}*t))
     block = coil
   []
 []
@@ -58,7 +68,6 @@
     variable = E
     vector_variable = A
     execute_on = timestep_end
-    block = target
   []
   [P]
     type = JouleHeatingAux
@@ -73,7 +82,7 @@
   [copper]
     type = GenericConstantMaterial
     prop_names = electrical_conductivity
-    prop_values = 5.96e7
+    prop_values = ${copper_econductivity}
   []
 []
 
