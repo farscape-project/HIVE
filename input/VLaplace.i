@@ -7,7 +7,7 @@
 [Variables]
   [V]
     family = LAGRANGE
-    order = SECOND
+    order = FIRST
   []
 []
 

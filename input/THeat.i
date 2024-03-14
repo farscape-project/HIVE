@@ -9,7 +9,7 @@
 [Variables]
   [T]
     family = LAGRANGE
-    order = SECOND
+    order = FIRST
     initial_condition = ${room_temperature}
   []
 []

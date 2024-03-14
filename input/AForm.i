@@ -16,7 +16,7 @@
 [AuxVariables]
   [V]
     family = LAGRANGE
-    order = SECOND
+    order = FIRST
   []
   [E]
     family = NEDELEC_ONE
@@ -101,10 +101,6 @@
   petsc_options_iname = -pc_type
   petsc_options_value = lu
   num_steps = 1
-[]
-
-[Outputs]
-  exodus = true
 []
 
 [MultiApps]
