@@ -73,8 +73,8 @@
     type = JouleHeatingAux
     variable = P
     electric_field = E
-    execute_on = timestep_end
     block = target
+    execute_on = timestep_end
   []
 []
 
@@ -114,14 +114,8 @@
 [Transfers]
   [pull_potential]
     type = MultiAppCopyTransfer
-
-    # Transfer from the sub-app to this app
     from_multi_app = VLaplace
-
-    # The name of the variable in the sub-app
     source_variable = V
-
-    # The name of the auxiliary variable in this app
     variable = V
   []
 []

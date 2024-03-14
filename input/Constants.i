@@ -16,3 +16,6 @@ room_temperature     = 218.15                                 # K
 
 voltage_amplitude    = 1e-5                                   # V
 voltage_frequency    = ${fparse 2*pi/.5}                      # rad/s
+
+end_t                = .5                                     # s
+delta_t              = ${fparse end_t/10}                     # s

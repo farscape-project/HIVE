@@ -67,8 +67,8 @@
   petsc_options_iname = -pc_type
   petsc_options_value = hypre
   start_time = 0.0
-  end_time = 0.5
-  dt = 0.05
+  end_time = ${end_t}
+  dt = ${delta_t}
 []
 
 [Outputs]
@@ -86,14 +86,8 @@
 [Transfers]
   [pull_potential]
     type = MultiAppCopyTransfer
-
-    # Transfer from the sub-app to this app
     from_multi_app = AForm
-
-    # The name of the variable in the sub-app
     source_variable = P
-
-    # The name of the auxiliary variable in this app
     variable = P
   []
 []
