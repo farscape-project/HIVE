@@ -1,11 +1,11 @@
-#include "hiveTestApp.h"
+#include "hiveApp.h"
 #include "MooseMain.h"
 
 // Begin the main program.
 int
 main(int argc, char * argv[])
 {
-  Moose::main<hiveTestApp>(argc, argv);
+  Moose::main<hiveApp>(argc, argv);
 
   return 0;
 }
