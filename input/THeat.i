@@ -71,6 +71,13 @@
   dt = ${delta_t}
 []
 
+[Postprocessors]
+  [max-T]
+    type = NodalExtremeValue
+    variable = T
+  []
+[]
+
 [Outputs]
   exodus = true
 []
