@@ -14,6 +14,14 @@ copper_capacity      = 385                                    # J/(kg*K)
 
 room_temperature     = 218.15                                 # K
 
+innerpipe_len        = 0.15                                   # m
+innerpipe_diameter   = 10e-3                                  # m
+innerpipe_area       = ${fparse pi*(innerpipe_diameter/2)^2 } # m^2
+inlet_temp           = 323.15                                 # K
+vol_flowrate_Lmin    = 40                                     # L/min
+vol_flowrate         = ${fparse vol_flowrate_Lmin*1.66667e-5} # m^3/s
+outlet_pressure      = 2e5                                    # Pa
+
 voltage_amplitude    = 1e-5                                   # V
 voltage_frequency    = ${fparse 2*pi/.5}                      # rad/s
 
