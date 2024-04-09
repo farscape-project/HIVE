@@ -18,6 +18,18 @@
     family = LAGRANGE
     order = FIRST
   []
+  [Vt]
+    family = LAGRANGE
+    order = FIRST
+  []
+  [E]
+    family = NEDELEC_ONE
+    order = FIRST
+  []
+  [B]
+    family = NEDELEC_ONE
+    order = FIRST
+  []
   [P]
     family = MONOMIAL
     order = CONSTANT
@@ -59,6 +71,26 @@
 []
 
 [AuxKernels]
+  [Vt]
+    type = ParsedAux
+    variable = Vt
+    coupled_variables = V
+    use_xyzt = true
+    expression = ${voltage_amplitude}*sin(${voltage_wfrequency}*t)*V
+  []
+  [E]
+    type = VectorTimeDerivativeAux
+    variable = E
+    coupled_vector_variable = A
+    coeff = -1
+    execute_on = timestep_end
+  []
+  [B]
+    type = CurlAux
+    variable = B
+    coupled_vector_variable = A
+    execute_on = timestep_end
+  []
   [P]
     type = JouleHeatingAux
     variable = P
@@ -84,6 +116,10 @@
   petsc_options_iname = -pc_type
   petsc_options_value = lu
   num_steps = 1
+[]
+
+[Outputs]
+  exodus = true
 []
 
 [MultiApps]
