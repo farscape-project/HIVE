@@ -1,4 +1,4 @@
-!include Constants.i
+!include Parameters.i
 
 [Mesh]
   type = FileMesh
@@ -16,10 +16,6 @@
 [AuxVariables]
   [V]
     family = LAGRANGE
-    order = FIRST
-  []
-  [E]
-    family = NEDELEC_ONE
     order = FIRST
   []
   [P]
@@ -44,45 +40,32 @@
   [dAdt_target]
     type = CoefVectorTimeDerivative
     variable = A
-    Coefficient = ${copper_econductivity}
+    coeff = ${copper_econductivity}
     block = target
   []
   [dAdt_coil_vacuum]
     type = CoefVectorTimeDerivative
     variable = A
-    Coefficient = ${vacuum_econductivity}
+    coeff = ${vacuum_econductivity}
     block = 'coil vacuum_region'
   []
   [gradV]
     type = CoupledGrad
     variable = A
     coupled_scalar_variable = V
-    function = ${copper_econductivity}*${voltage_amplitude}*(1-cos(${voltage_frequency}*t))
+    function = ${copper_econductivity}*${voltage_amplitude}*sin(${voltage_wfrequency}*t)
     block = coil
   []
 []
 
 [AuxKernels]
-  [E]
-    type = VectorTimeDerivativeAux
-    variable = E
-    vector_variable = A
-    execute_on = timestep_end
-  []
   [P]
     type = JouleHeatingAux
     variable = P
-    electric_field = E
+    vector_potential = A
+    sigma = ${copper_econductivity}
     block = target
     execute_on = timestep_end
-  []
-[]
-
-[Materials]
-  [copper]
-    type = GenericConstantMaterial
-    prop_names = electrical_conductivity
-    prop_values = ${copper_econductivity}
   []
 []
 
@@ -90,8 +73,8 @@
   [plane]
     type = VectorCurlPenaltyDirichletBC
     variable = A
-    boundary = 'terminal_face coil_in coil_out'
-    penalty = 1e8
+    boundary = 'coil_in coil_out terminal_plane'
+    penalty = 1e14
   []
 []
 

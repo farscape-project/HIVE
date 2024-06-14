@@ -9,6 +9,7 @@ hiveApp::validParams()
 {
   InputParameters params = MooseApp::validParams();
   params.set<bool>("use_legacy_material_output") = false;
+  params.set<bool>("use_legacy_initial_residual_evaluation_behavior") = false;
   return params;
 }
 
@@ -19,7 +20,7 @@ hiveApp::hiveApp(InputParameters parameters) : MooseApp(parameters)
 
 hiveApp::~hiveApp() {}
 
-void 
+void
 hiveApp::registerAll(Factory & f, ActionFactory & af, Syntax & s)
 {
   ModulesApp::registerAllObjects<hiveApp>(f, af, s);

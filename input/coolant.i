@@ -1,4 +1,4 @@
-!include Constants.i
+!include Parameters.i
 
 [GlobalParams]
   initial_p = ${outlet_pressure}
