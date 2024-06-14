@@ -86,7 +86,8 @@
   [plane]
     type = DirichletBC
     variable = T
-    boundary = 'coil_in coil_out terminal_plane'
+    # boundary = 'coil_in coil_out terminal_face'
+    boundary = 'coil_in coil_out'
     value = ${room_temperature}
   []
   [temp_inner_pipe_from_multiapp]
