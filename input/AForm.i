@@ -90,7 +90,8 @@
   [plane]
     type = VectorCurlPenaltyDirichletBC
     variable = A
-    boundary = 'terminal_face coil_in coil_out'
+    # boundary = 'terminal_face coil_in coil_out'
+    boundary = 'coil_in coil_out'
     penalty = 1e8
   []
 []
