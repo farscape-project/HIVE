@@ -19,6 +19,36 @@
     family = MONOMIAL
     order = CONSTANT
   []
+  [temp_received]
+    # order = CONSTANT
+    order = FIRST
+    family = LAGRANGE
+    initial_condition = ${room_temperature}
+  []
+  [aux_flux]
+    order = CONSTANT
+    family = MONOMIAL
+  []
+  [aux_flux_boundary]
+    order = FIRST
+    family = LAGRANGE
+  []
+[]
+
+[AuxKernels]
+ [aux_flux_kernel_proj]
+    type = ProjectionAux
+    variable = aux_flux_boundary
+    v = aux_flux
+  []
+  [aux_flux_kernel]
+    type = DiffusionFluxAux
+    diffusion_variable = T
+    component = normal
+    diffusivity = thermal_conductivity
+    variable = aux_flux
+    boundary = "inner_pipe"
+  []
 []
 
 [Kernels]
@@ -59,6 +89,12 @@
     boundary = 'coil_in coil_out terminal_plane'
     value = ${room_temperature}
   []
+  [temp_inner_pipe_from_multiapp]
+    type = FunctorDirichletBC
+    variable = T
+    boundary = 'inner_pipe'
+    functor = temp_received
+  []
 []
 
 [Executioner]
@@ -88,6 +124,13 @@
     input_files = AForm.i
     execute_on = timestep_begin
   []
+  [flow_channel]
+    type = TransientMultiApp
+    input_files = coolant.i
+    execute_on = 'timestep_end'
+    sub_cycling = true
+    max_procs_per_app = 1 #8
+  []
 []
 
 [Transfers]
@@ -96,5 +139,25 @@
     from_multi_app = AForm
     source_variable = P
     variable = P
+  []
+
+  # coolant transfers
+  [T_from_child]
+    type = MultiAppGeneralFieldNearestLocationTransfer
+    from_multi_app = flow_channel
+    # distance_weighted_average = true
+    source_variable = 'T'
+    variable = "T" 
+    to_boundaries = "inner_pipe"
+    num_nearest_points = 3
+  []
+  [heatflux_from_parent_to_child]
+    type = MultiAppGeneralFieldNearestLocationTransfer
+    to_multi_app = flow_channel
+    # distance_weighted_average = true
+    source_variable = aux_flux_boundary # *from variable*
+    from_boundaries = "inner_pipe"
+    variable = q_wall # *to variable*
+    num_nearest_points = 10
   []
 []
