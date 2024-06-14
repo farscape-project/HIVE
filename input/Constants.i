@@ -25,5 +25,5 @@ outlet_pressure      = 2e5                                    # Pa
 voltage_amplitude    = 1e-5                                   # V
 voltage_frequency    = ${fparse 2*pi/.5}                      # rad/s
 
-end_t                = .5                                     # s
-delta_t              = ${fparse end_t/10}                     # s
+end_t                = 100                                     # s
+delta_t              = 0.05                                    # s
