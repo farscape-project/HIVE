@@ -90,5 +90,6 @@
 []
 
 [Outputs]
+  exodus = true
   vtk = true
 []
