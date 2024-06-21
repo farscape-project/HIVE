@@ -259,7 +259,7 @@
     from_multi_app = flow_channel
     # distance_weighted_average = true
     source_variable = 'T'
-    variable = "T" 
+    variable = temp_received
     to_boundaries = "inner_pipe"
     num_nearest_points = 3
   []
