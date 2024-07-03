@@ -29,3 +29,4 @@ voltage_period       = ${fparse 1/voltage_frequency}          # s
 
 end_t                = ${fparse voltage_period}               # s
 delta_t              = ${fparse voltage_period/10}            # s
+dt_fluid             = ${fparse voltage_period/10}

@@ -117,10 +117,15 @@
     type = NodalExtremeValue
     variable = T
   []
+  [max-flux]
+    type = NodalExtremeValue
+    variable = aux_flux_boundary
+  []
 []
 
 [Outputs]
   exodus = true
+  csv = true
 []
 
 [MultiApps]

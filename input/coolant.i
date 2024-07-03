@@ -84,11 +84,24 @@
 
   [./TimeStepper]
     type = ConstantDT
-    dt = 0.01
+    dt = ${dt_fluid}
     cutback_factor_at_failure = 0.1
   [../]
 []
 
+[Postprocessors]
+  [max-T]
+    type = ElementExtremeValue
+    variable = T
+  []
+  [max-flux]
+    type = ElementExtremeValue
+    variable = q_wall
+  []
+[]
+
 [Outputs]
+  exodus = true
   vtk = true
+  csv = true
 []
