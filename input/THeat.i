@@ -154,7 +154,7 @@
     source_variable = 'T'
     variable = temp_received
     to_boundaries = "inner_pipe"
-    num_nearest_points = 3
+    num_nearest_points = 1
   []
   [heatflux_from_parent_to_child]
     type = MultiAppGeneralFieldNearestLocationTransfer
@@ -163,6 +163,6 @@
     source_variable = aux_flux_boundary # *from variable*
     from_boundaries = "inner_pipe"
     variable = q_wall # *to variable*
-    num_nearest_points = 10
+    num_nearest_points = 1
   []
 []
