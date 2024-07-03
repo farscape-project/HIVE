@@ -84,7 +84,7 @@
 
   [./TimeStepper]
     type = ConstantDT
-    dt = 0.01
+    dt = ${delta_t_coolant}
     cutback_factor_at_failure = 0.1
   [../]
 []

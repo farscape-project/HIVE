@@ -215,7 +215,7 @@
   petsc_options_value = hypre
   start_time = 0.0
   end_time = ${end_t}
-  dt = ${delta_t}
+  dt = ${delta_t_main}
 []
 
 [Postprocessors]
