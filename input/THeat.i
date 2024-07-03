@@ -216,6 +216,11 @@
   end_time = ${end_t}
   dt = ${delta_t_main}
 
+  # Picard iterations to maintain consistency between this and child simulations
+  fixed_point_max_its = 15
+  fixed_point_rel_tol = 1e-7
+  fixed_point_abs_tol = 1e-7
+
   nl_abs_tol = 1e-6
   nl_rel_tol = 1e-8
   l_tol = 1e-6
