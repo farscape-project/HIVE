@@ -231,7 +231,7 @@
 
 [Outputs]
   exodus = true
-  interval = 200
+  print_linear_residuals=false
 []
 
 [MultiApps]
