@@ -100,12 +100,16 @@
 
 [Executioner]
   type = Transient
-  solve_type = LINEAR
+  solve_type = NEWTON
   petsc_options_iname = -pc_type
   petsc_options_value = hypre
   start_time = 0.0
   end_time = ${end_t}
   dt = ${delta_t}
+
+  nl_abs_tol = 1e-6
+  nl_rel_tol = 1e-8
+  l_tol = 1e-6
 []
 
 [Postprocessors]
