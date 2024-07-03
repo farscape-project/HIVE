@@ -210,12 +210,16 @@
 
 [Executioner]
   type = Transient
-  solve_type = LINEAR
+  solve_type = NEWTON
   petsc_options_iname = -pc_type
   petsc_options_value = hypre
   start_time = 0.0
   end_time = ${end_t}
   dt = ${delta_t_main}
+
+  nl_abs_tol = 1e-6
+  nl_rel_tol = 1e-8
+  l_tol = 1e-6
 []
 
 [Postprocessors]
@@ -256,6 +260,7 @@
   # coolant transfers
   [T_from_child]
     type = MultiAppGeneralFieldNearestLocationTransfer
+    from_app_must_contain_point = true
     from_multi_app = flow_channel
     # distance_weighted_average = true
     source_variable = 'T'
@@ -265,6 +270,7 @@
   []
   [heatflux_from_parent_to_child]
     type = MultiAppGeneralFieldNearestLocationTransfer
+    from_app_must_contain_point = true
     to_multi_app = flow_channel
     # distance_weighted_average = true
     source_variable = aux_flux_boundary # *from variable*
