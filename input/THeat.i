@@ -227,11 +227,16 @@
     type = NodalExtremeValue
     variable = T
   []
+  [max-flux]
+    type = NodalExtremeValue
+    variable = aux_flux_boundary
+  []
 []
 
 [Outputs]
   exodus = true
   print_linear_residuals=false
+  csv = true
 []
 
 [MultiApps]
@@ -250,6 +255,7 @@
 []
 
 [Transfers]
+  # pull potential, to use in CoupledForce
   [pull_potential]
     type = MultiAppCopyTransfer
     from_multi_app = AForm
@@ -265,7 +271,9 @@
     source_variable = 'T'
     variable = temp_received
     to_boundaries = "inner_pipe"
-    num_nearest_points = 3
+    num_nearest_points = 1
+    # from_app_must_contain_point = false # prevent extrapolation
+    value_conflicts_output = 0 # do not print search conflicts
   []
   [heatflux_from_parent_to_child]
     type = MultiAppGeneralFieldNearestLocationTransfer
@@ -274,6 +282,8 @@
     source_variable = aux_flux_boundary # *from variable*
     from_boundaries = "inner_pipe"
     variable = q_wall # *to variable*
-    num_nearest_points = 10
+    num_nearest_points = 1
+    # from_app_must_contain_point = false # prevent extrapolation
+    value_conflicts_output = 0 # do not print search conflicts
   []
 []

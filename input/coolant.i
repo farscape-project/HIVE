@@ -89,7 +89,19 @@
   [../]
 []
 
+[Postprocessors]
+  [max-flux]
+    type = ElementExtremeValue
+    variable = q_wall
+  []
+  [max-T]
+    type = ElementExtremeValue
+    variable = T
+  []
+[]
+
 [Outputs]
   exodus = true
   vtk = true
+  csv = true
 []
