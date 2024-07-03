@@ -12,7 +12,7 @@ copper_tconductivity = 398                                    # W/(m*K)
 copper_density       = 8.96e3                                 # kg/m^3
 copper_capacity      = 385                                    # J/(kg*K)
 
-room_temperature     = 218.15                                 # K
+room_temperature     = 293.15                                 # K
 
 innerpipe_len        = 0.15                                   # m
 innerpipe_diameter   = 10e-3                                  # m
