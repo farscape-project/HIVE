@@ -2,7 +2,7 @@
 
 [Mesh]
   type = FileMesh
-  file = ../mesh/vac_oval_coil_solid_target_coarse.e
+  file = ../mesh/vac_oval_coil_solid_target.e
   second_order = true
 []
 
@@ -73,8 +73,9 @@
   [plane]
     type = VectorCurlPenaltyDirichletBC
     variable = A
-    boundary = 'coil_in coil_out terminal_plane'
-    penalty = 1e14
+    # boundary = 'terminal_face coil_in coil_out'
+    boundary = 'coil_in coil_out'
+    penalty = 1e8
   []
 []
 
