@@ -124,11 +124,6 @@ accuracy, time-to-solution and general usability.
 
 ### Time-to-solution
 
-* Switch to a time-averaged Joule heating source in the heat equation sub-app
-  to keep the problem tractable when simulating over a long physical time span.
-  The $\mathbf{A}$ formulation sub-app will then sub-cycle, i.e. perform
-  multiple time steps for each time step of the heat equation sub-app.
-
 * Study the potential gains of solving all, but most importantly the
   $\mathbf{A}$ formulation sub-app, on the GPU simply via PETSc/hypre flags.
 
