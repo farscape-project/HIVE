@@ -79,6 +79,7 @@
     variable = P
     vector_potential = A
     sigma = ${steel_econductivity}
+    skip = ${fparse end_t_af/2}
     block = target
     execute_on = timestep_end
   []
@@ -124,7 +125,9 @@
   solve_type = LINEAR
   petsc_options_iname = -pc_type
   petsc_options_value = cholesky
-  num_steps = 1
+  start_time = 0.0
+  end_time = ${end_t_af}
+  dt = ${delta_t_af}
 []
 
 [Outputs]

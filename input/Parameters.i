@@ -26,7 +26,9 @@ voltage_frequency    = 1e5                                    # Hz
 voltage_wfrequency   = ${fparse 2*pi*voltage_frequency}       # rad/s
 voltage_period       = ${fparse 1/voltage_frequency}          # s
 
-end_t                = ${fparse voltage_period}               # s
-delta_t              = ${fparse voltage_period/10}            # s
+end_t_af             = ${fparse voltage_period*10}            # s
+end_t_th             = 60                                     # s
+delta_t_af           = ${fparse voltage_period/10}            # s
+delta_t_th           = 5                                      # s
 
 visualization        = false
