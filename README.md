@@ -1,6 +1,6 @@
 # HIVE: Heating by Induction to Verify Extremes
 
-_Nuno Nobre and Karthikeyan Chockalingam_
+_Nuno Nobre, Josh Williams and Karthikeyan Chockalingam_
 
 ###
 
@@ -83,11 +83,12 @@ coupling pipeline proceeds as follows:
 
     Solved for the magnetic vector potential $\mathbf{A} \in \mathcal{N}^0_I$
     [<sup>(*)</sup>](https://defelement.com/elements/examples/tetrahedron-nedelec1-lagrange-1.html),
-    everywhere in space and for each time step, with Dirichlet boundary
-    conditions on the $\mathbf{n}$-oriented plane boundary of the vacuum
-    chamber where the coil terminals sit, $\mathbf{A} × \mathbf{n} = 0$, and
-    Neumann boundary conditions on its remaining $\mathbf{n}$-oriented outer
-    surfaces, $\mathbf{∇} × \mathbf{A} × \mathbf{n} = 0$.
+    everywhere in space and for each time step $\Delta t_\mathrm{EM}$ of only a
+    reduced selection of cycles of the voltage source in (1), with Dirichlet
+    boundary conditions on the $\mathbf{n}$-oriented plane boundary of the
+    vacuum chamber where the coil terminals sit, $\mathbf{A} × \mathbf{n} = 0$,
+    and Neumann boundary conditions on its remaining $\mathbf{n}$-oriented
+    outer surfaces, $\mathbf{∇} × \mathbf{A} × \mathbf{n} = 0$.
     $ν$ is the magnetic reluctivity (the reciprocal of the magnetic
     permeability) and $σ$ is the electrical conductivity.
     The right-hand side is non-zero only within the coil, see (1), and is
@@ -98,14 +99,17 @@ coupling pipeline proceeds as follows:
 
    Solved for the temperature $T \in \mathcal{P}^1$
    [<sup>(*)</sup>](https://defelement.com/elements/examples/tetrahedron-lagrange-equispaced-1.html),
-   everywhere in space and for each time step, with Neumann boundary conditions
-   on the $\mathbf{n}$-oriented outer surface of the vacuum chamber,
-   $\mathbf{∇}T \cdot \mathbf{n} = 0$, and initial conditions everywhere in
-   space, $T = T_\mathrm{room}$.
+   everywhere in space and for each time step $\Delta t_\mathrm{HT}$, with
+   Neumann boundary conditions on the $\mathbf{n}$-oriented outer surface of
+   the vacuum chamber, $\mathbf{∇}T \cdot \mathbf{n} = 0$, and initial
+   conditions everywhere in space, $T = T_\mathrm{room}$.
    $ρ$ is the density, $c$ is the specific heat capacity, and $k$ is the
    thermal conductivity.
-   The right-hand side is the Joule heating term which, as of this writing, we
-   compute only on the target.
+   The right-hand side is the Joule heating term which we compute only on the
+   target and is time-averaged over the simulated time interval in (2). This
+   enables quicker simulations by solving for the temperature $T$ on a larger
+   time scale than the magnetic vector potential $\mathbf{A}$, i.e.
+   $\Delta t_\mathrm{HT} >> \Delta t_\mathrm{EM}$.
 
 See [input/Parameters.i](input/Parameters.i) for the set of parameters
 influencing the simulation.
@@ -134,11 +138,6 @@ accuracy, time-to-solution and general usability.
 * Add support to MOOSE (+libMesh) for $\mathcal{N}^1_I$ variables on TET14s.
 
 ### Time-to-solution
-
-* Switch to a time-averaged Joule heating source in the heat equation sub-app
-  to keep the problem tractable when simulating over a long physical time span.
-  The $\mathbf{A}$ formulation sub-app will then sub-cycle, i.e. perform
-  multiple time steps for each time step of the heat equation sub-app.
 
 * Study the potential gains of solving all, but most importantly the
   $\mathbf{A}$ formulation sub-app, on the GPU simply via PETSc/hypre flags.
