@@ -60,8 +60,9 @@
 
 [AuxKernels]
   [P]
-    type = JouleHeatingAux
+    type = TimeAveragedJouleHeatingAux
     variable = P
+    power_prev = P
     vector_potential = A
     sigma = ${copper_econductivity}
     block = target
@@ -78,12 +79,21 @@
   []
 []
 
+[Postprocessors]
+  [max-P]
+    type = ElementExtremeValue
+    variable = P
+  []
+[]
+
 [Executioner]
   type = Transient
   solve_type = LINEAR
   petsc_options_iname = -pc_type
   petsc_options_value = lu
-  num_steps = 1
+  start_time = 0.0
+  end_time = ${end_t}
+  dt = ${delta_t}
 []
 
 [MultiApps]
@@ -101,4 +111,8 @@
     source_variable = V
     variable = V
   []
+[]
+
+[Outputs]
+  csv = true
 []

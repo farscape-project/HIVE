@@ -67,17 +67,25 @@
   petsc_options_iname = -pc_type
   petsc_options_value = hypre
   start_time = 0.0
-  end_time = ${end_t}
-  dt = ${delta_t}
+  end_time = ${end_t_temp}
+  dt = ${delta_t_temp}
+[]
+
+[Postprocessors]
+  [max-T]
+    type = NodalExtremeValue
+    variable = T
+  []
 []
 
 [Outputs]
   exodus = true
+  csv = true
 []
 
 [MultiApps]
   [AForm]
-    type = TransientMultiApp
+    type = FullSolveMultiApp
     input_files = AForm.i
     execute_on = timestep_begin
   []
