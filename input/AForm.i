@@ -2,7 +2,7 @@
 
 [Mesh]
   type = FileMesh
-  file = ../mesh/vac_oval_coil_solid_target_coarse.e
+  file = ../mesh/vac_oval_coil_solid_target.e
   second_order = true
 []
 
@@ -28,7 +28,7 @@
   [curlcurlA_coil_target]
     type = CurlCurlField
     variable = A
-    coeff = ${copper_reluctivity}
+    coeff = ${apollo_reluctivity}
     block = 'coil target'
   []
   [curlcurlA_vacuum]
@@ -40,7 +40,7 @@
   [dAdt_target]
     type = CoefVectorTimeDerivative
     variable = A
-    coeff = ${copper_econductivity}
+    coeff = ${steel_econductivity}
     block = target
   []
   [dAdt_coil_vacuum]
@@ -53,7 +53,7 @@
     type = CoupledGrad
     variable = A
     coupled_scalar_variable = V
-    function = ${copper_econductivity}*${voltage_amplitude}*sin(${voltage_wfrequency}*t)
+    function = ${steel_econductivity}*${voltage_amplitude}*sin(${voltage_wfrequency}*t)
     block = coil
   []
 []
@@ -64,7 +64,7 @@
     variable = P
     power_prev = P
     vector_potential = A
-    sigma = ${copper_econductivity}
+    sigma = ${steel_econductivity}
     block = target
     execute_on = timestep_end
   []
@@ -74,7 +74,7 @@
   [plane]
     type = VectorCurlPenaltyDirichletBC
     variable = A
-    boundary = 'coil_in coil_out terminal_plane'
+    boundary = 'coil_in coil_out'
     penalty = 1e14
   []
 []
@@ -91,9 +91,13 @@
   solve_type = LINEAR
   petsc_options_iname = -pc_type
   petsc_options_value = lu
+
   start_time = 0.0
   end_time = ${end_t}
   dt = ${delta_t}
+  nl_abs_tol = 1e-6
+  nl_rel_tol = 1e-8
+  l_tol = 1e-6
 []
 
 [MultiApps]

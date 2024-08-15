@@ -5,21 +5,25 @@ vacuum_tconductivity = 0                                      # W/(m*K)
 vacuum_density       = 0                                      # kg/m^3
 vacuum_capacity      = 0                                      # J/(kg*K)
 
-copper_permeability  = ${fparse 0.999994*vacuum_permeability} # H/m
-copper_reluctivity   = ${fparse 1/copper_permeability}        # (H/m)^-1
-copper_econductivity = 5.96e7                                 # S/m
-copper_tconductivity = 398                                    # W/(m*K)
-copper_density       = 8.96e3                                 # kg/m^3
-copper_capacity      = 385                                    # J/(kg*K)
+steel_econductivity = 1e6                                     # S/m
+apollo_permeability  = ${fparse vacuum_permeability}          # H/m
+apollo_reluctivity   = ${fparse 1/apollo_permeability}        # (H/m)^-1
 
-room_temperature     = 293.15                                 # K
+room_temperature     = 300.0                                  # K
 
-voltage_amplitude    = 1                                      # V
+coil_length = 0.4202366016924178                              # m (from paraview)
+coil_area = 2.3753e-05                                        # m^2 (from paraview)
+coil_resistance = ${fparse 1/steel_econductivity * coil_length / coil_area} # Ohm
+coil_current = 1828                                           # A, taken from Apollo input file
+voltage_amplitude    = ${fparse coil_current*coil_resistance} # V
 voltage_frequency    = 1e5                                    # Hz
 voltage_wfrequency   = ${fparse 2*pi*voltage_frequency}       # rad/s
 voltage_period       = ${fparse 1/voltage_frequency}          # s
 
-end_t                = ${fparse voltage_period}             # s
-delta_t              = ${fparse voltage_period/10}            # s
-end_t_temp           = ${fparse voltage_period*10}             # s
-delta_t_temp         = ${fparse voltage_period}             # s
+coolant_bulk_temp    = 300.0                                  # K
+
+num_voltage_periods = 4
+end_t                = ${fparse voltage_period*num_voltage_periods} # s
+delta_t              = ${fparse voltage_period/40}            # s
+end_t_temp           = 60                                     # s
+delta_t_temp         = 5                                      # s
