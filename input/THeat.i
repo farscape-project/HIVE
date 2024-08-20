@@ -80,6 +80,7 @@
     type = TransientMultiApp
     input_files = AForm.i
     execute_on = timestep_begin
+    clone_parent_mesh = true
   []
 []
 

@@ -1,9 +1,6 @@
 !include Parameters.i
 
 [Mesh]
-  type = FileMesh
-  file = ../mesh/vac_oval_coil_solid_target_coarse.e
-  second_order = true
 []
 
 [Variables]
@@ -91,6 +88,7 @@
     type = FullSolveMultiApp
     input_files = VLaplace.i
     execute_on = initial
+    clone_parent_mesh = true
   []
 []
 

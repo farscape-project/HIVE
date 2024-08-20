@@ -1,7 +1,4 @@
 [Mesh]
-  type = FileMesh
-  file = ../mesh/vac_oval_coil_solid_target_coarse.e
-  second_order = true
 []
 
 [Variables]
