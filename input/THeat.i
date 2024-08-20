@@ -85,7 +85,7 @@
 []
 
 [Transfers]
-  [pull_potential]
+  [pull_power]
     type = MultiAppCopyTransfer
     from_multi_app = AForm
     source_variable = P
