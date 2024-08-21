@@ -61,6 +61,24 @@
   []
 []
 
+[Postprocessors]
+  [P(total)]
+    type = ElementIntegralVariablePostprocessor
+    variable = P
+    block = target
+  []
+  [T(average)]
+    type = ElementAverageValue
+    variable = T
+    block = target
+  []
+  [T(max)]
+    type = NodalExtremeValue
+    variable = T
+    block = target
+  []
+[]
+
 [Executioner]
   type = Transient
   solve_type = LINEAR
@@ -73,6 +91,7 @@
 
 [Outputs]
   exodus = true
+  csv = true
 []
 
 [MultiApps]
