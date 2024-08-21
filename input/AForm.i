@@ -75,6 +75,14 @@
   []
 []
 
+[Postprocessors]
+  [P]
+    type = ElementIntegralVariablePostprocessor
+    variable = P
+    block = target
+  []
+[]
+
 [Executioner]
   type = Transient
   solve_type = LINEAR
