@@ -14,7 +14,7 @@ copper_capacity      = 385                                    # J/(kg*K)
 
 room_temperature     = 293.15                                 # K
 
-voltage_amplitude    = 1                                      # V
+voltage_amplitude    = 0.3052310653                           # V
 voltage_frequency    = 1e5                                    # Hz
 voltage_wfrequency   = ${fparse 2*pi*voltage_frequency}       # rad/s
 voltage_period       = ${fparse 1/voltage_frequency}          # s
