@@ -59,13 +59,13 @@ proceeds as follows:
     Solved for the electric potential $V \in \mathcal{P}^1$
     [<sup>(*)</sup>](https://defelement.com/elements/examples/tetrahedron-lagrange-equispaced-1.html),
     only on the coil and only once, with Dirichlet boundary conditions on both
-    its terminals, $V_\mathrm{in} = 1\mathrm{V}$ and
-    $V_\mathrm{out} = 0\mathrm{V}$, and Neumann boundary conditions on its
+    its terminals, $V_\mathrm{in} = V_\mathrm{max}$ and
+    $V_\mathrm{out} = 0$, and Neumann boundary conditions on its
     $\mathbf{n}$-oriented lateral surface, $\mathbf{∇}V \cdot \mathbf{n} = 0$.
     This sole solution can then be scaled appropriately for any time step if
     the time-dependent Dirichlet boundary condition is assumed uniform, i.e.
     $V_\mathrm{in}(\mathbf{r},t) \equiv V_\mathrm{in}(t)$. Here, we take
-    $V_\mathrm{in}(t)=\mathrm{sin}(\omega t)\mathrm{V}$ for some angular
+    $V_\mathrm{in}(t)=V_\mathrm{max}\mathrm{sin}(\omega t)$ for some angular
     frequency $\omega$.
 
 2) The $\mathbf{A}$ formulation: $\mathbf{∇}× \left(ν \mathbf{∇}× \mathbf{A}\right) +σ \partial_t \mathbf{A} = -σ \mathbf{∇}V$.
@@ -99,10 +99,11 @@ proceeds as follows:
 
 See [input/Parameters.i](input/Parameters.i) for the set of parameters
 influencing the simulation.
-This file is included at the top of both
-[input/AForm.i](input/AForm.i) and [input/THeat.i](input/THeat.i).
-Since neither uses the entire parameter set, MOOSE issues a few warnings that
-can be safely ignored.
+This file is included at the top of the input files for each of the three
+sub-apps, [input/VLaplace.i](input/VLaplace.i), [input/AForm.i](input/AForm.i)
+and [input/THeat.i](input/THeat.i).
+Since none uses the entire parameter set, MOOSE issues a few warnings that
+can be safely ignored (thus the need for the `-w` flag above).
 All material properties are assumed uniform within each of the three components
 and, as of this writing, also temperature-independent.
 
