@@ -1,3 +1,5 @@
+!include Parameters.i
+
 [Mesh]
 []
 
@@ -26,13 +28,28 @@
     type = DirichletBC
     variable = V
     boundary = coil_in
-    value = 1
+    value = ${voltage_amplitude}
   []
   [out]
     type = DirichletBC
     variable = V
     boundary = coil_out
     value = 0
+  []
+[]
+
+[Postprocessors]
+  [I(in)]
+    type = SideDiffusiveFluxIntegral
+    variable = V
+    boundary = coil_in
+    diffusivity = -${copper_econductivity}
+  []
+  [I(out)]
+    type = SideDiffusiveFluxIntegral
+    variable = V
+    boundary = coil_out
+    diffusivity = ${copper_econductivity}
   []
 []
 

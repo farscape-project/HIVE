@@ -50,7 +50,7 @@
     type = CoupledGrad
     variable = A
     coupled_scalar_variable = V
-    function = ${copper_econductivity}*${voltage_amplitude}*sin(${voltage_wfrequency}*t)
+    function = ${copper_econductivity}*sin(${voltage_wfrequency}*t)
     block = coil
   []
 []
