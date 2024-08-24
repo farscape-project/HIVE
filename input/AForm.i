@@ -88,7 +88,9 @@
   solve_type = LINEAR
   petsc_options_iname = -pc_type
   petsc_options_value = lu
-  num_steps = 1
+  start_time = 0.0
+  end_time = ${end_t_em}
+  dt = ${delta_t_em}
 []
 
 [MultiApps]

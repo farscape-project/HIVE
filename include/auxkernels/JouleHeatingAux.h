@@ -16,5 +16,8 @@ protected:
   const VectorVariableValue & _electric_field;
 
   /// The electrical conductivity
-  Real _sigma;
+  const Real _sigma;
+
+  /// Whether to take the time average
+  const bool _avg;
 };
