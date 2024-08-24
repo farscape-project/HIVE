@@ -30,7 +30,7 @@ Installation is as usual for any MOOSE app:
 4) Run it with a no. of `processes` of your choice,
    `mpirun [-n processes] ./hive-opt -w -i input/THeat.i`.
 
-## App design
+## A brief conceptual introduction
 
 For simulation purposes, we discretize HIVE using a tetrahedral mesh, see
 [mesh/](mesh/) for both coarse and fine options, and segment it into three
@@ -47,11 +47,19 @@ a time-varying electric current flows through the coil, creating a time-varying
 magnetic field which induces a time-varying electric current in the target
 that gradually warms up via Joule heating.
 
-More specifically, this app leverages a linear, but time-dependent,
-finite element formulation split into three sub-apps. Each
-sub-app solves a different equation for a different field, and feeds
-the solution to the next sub-app. This one-way coupling pipeline
-proceeds as follows:
+Recall that the time-varying electric current flowing through the target will
+self-induce a current, causing the (net) current to flow mostly along the outer perimeter, or skin, of the target. This is known as the skin effect and is more
+pronounced the higher the frequency. Furthermore, since induced currents lag
+their sources by one-quarter cycle, i.e. $\pi/2$, the resulting current on the
+target will, with increasing frequency, tend to lag the current on the coil by
+one-half cycle, i.e. $\pi$.
+
+## App design
+
+This app leverages a linear, but time-dependent, finite element formulation
+split into three sub-apps. Each sub-app solves a different equation for a
+different field, and feeds the solution to the next sub-app. This one-way
+coupling pipeline proceeds as follows:
 
 1) Laplace's equation: $∇^2 V = 0$.
    See [input/VLaplace.i](https://github.com/farscape-project/HIVE/blob/main/input/VLaplace.i).
