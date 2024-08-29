@@ -32,10 +32,12 @@ Installation is as usual for any MOOSE app:
 
 ## A brief conceptual introduction
 
-For simulation purposes, we discretize HIVE using a tetrahedral mesh, see
-[mesh/](mesh/) for both coarse and fine options, and segment it into three
-components: a cuboid vacuum chamber, an electromagnetic coil, and a target
-prototype component.
+For simulation purposes, we discretize HIVE using a tetrahedral mesh and
+segment it into three components: a cuboid vacuum chamber, an electromagnetic
+coil, and a target prototype component.
+See [mesh/](mesh/) for both a coarse and a fine option, but note the latter is
+_not_ a uniform refinement of the former and that, in particular, the coil is
+discretized using the same number of elements in both.
 Both the coil and the target sit within the vacuum chamber and are assumed to
 be made of electrically conductive materials.
 Here we use copper for both, but other conductors can also be used.
