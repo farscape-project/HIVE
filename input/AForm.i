@@ -79,7 +79,7 @@
     variable = P
     vector_potential = A
     sigma = ${steel_econductivity}
-    skip = ${fparse end_t_af/2}
+    skip = ${skip_t_af}
     block = target
     execute_on = timestep_end
   []
