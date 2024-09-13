@@ -39,13 +39,13 @@
 []
 
 [Postprocessors]
-  [I(in)]
+  [I(in){A}]
     type = SideDiffusiveFluxIntegral
     variable = V
     boundary = coil_in
     diffusivity = -${copper_econductivity}
   []
-  [I(out)]
+  [I(out){A}]
     type = SideDiffusiveFluxIntegral
     variable = V
     boundary = coil_out

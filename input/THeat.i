@@ -62,17 +62,22 @@
 []
 
 [Postprocessors]
-  [P(total)]
+  [P(total){W}]
     type = ElementIntegralVariablePostprocessor
     variable = P
     block = target
   []
-  [T(average)]
+  [P(Max){W.m-3}]
+    type = ElementExtremeValue
+    variable = P
+    block = target
+  []
+  [T(average){K}]
     type = ElementAverageValue
     variable = T
     block = target
   []
-  [T(max)]
+  [T(Max){K}]
     type = NodalExtremeValue
     variable = T
     block = target
