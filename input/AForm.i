@@ -79,7 +79,7 @@
   type = Transient
   solve_type = LINEAR
   petsc_options_iname = -pc_type
-  petsc_options_value = lu
+  petsc_options_value = cholesky
   num_steps = 1
 []
 
