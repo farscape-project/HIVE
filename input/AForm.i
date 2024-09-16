@@ -81,6 +81,7 @@
     variable = E
     coupled_vector_variable = A
     coeff = -1
+    block = target
     execute_on = timestep_end
   []
   [B]
