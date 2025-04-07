@@ -34,11 +34,17 @@
 []
 
 [Kernels]
-  [curlcurlA_coil_target]
+  [curlcurlA_coil]
     type = CurlCurlField
     variable = A
     coeff = ${copper_reluctivity}
-    block = 'coil target'
+    block = coil
+  []
+  [curlcurlA_target]
+    type = CurlCurlField
+    variable = A
+    coeff = ${steel_reluctivity}
+    block = target
   []
   [curlcurlA_vacuum]
     type = CurlCurlField
@@ -49,7 +55,7 @@
   [dAdt_target]
     type = CoefVectorTimeDerivative
     variable = A
-    coeff = ${copper_econductivity}
+    coeff = ${steel_econductivity}
     block = target
   []
   [dAdt_coil_vacuum]
@@ -72,7 +78,7 @@
     type = JouleHeatingAux
     variable = P
     vector_potential = A
-    sigma = ${copper_econductivity}
+    sigma = ${steel_econductivity}
     block = target
     execute_on = timestep_end
   []

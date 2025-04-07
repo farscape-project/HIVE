@@ -37,7 +37,8 @@ and segment it into three components: a cuboid vacuum chamber, an
 electromagnetic coil, and a target prototype component.
 Both the coil and the target sit within the vacuum chamber and are assumed to
 be made of electrically conductive materials.
-Here we use copper for both, but other conductors can also be used.
+Here we use copper for the coil and 316L stainless steel for the target, but
+other conductors can also be used.
 
 HIVE is, quite simply, an expensive induction hob, not unlike the one you might
 have at home.

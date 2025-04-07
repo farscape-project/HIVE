@@ -40,10 +40,10 @@
 []
 
 [Materials]
-  [copper]
+  [steel]
     type = GenericConstantMaterial
-    prop_names =  'thermal_conductivity    specific_heat      density'
-    prop_values = '${copper_tconductivity} ${copper_capacity} ${copper_density}'
+    prop_names =  'thermal_conductivity   specific_heat     density'
+    prop_values = '${steel_tconductivity} ${steel_capacity} ${steel_density}'
     block = 'coil target'
   []
   [vacuum]
