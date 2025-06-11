@@ -1,0 +1,14 @@
+diff --git a/src/formulations/HCurl/hcurl_formulation.cpp b/src/formulations/HCurl/hcurl_formulation.cpp
+index 604e984..18bc8a4 100644
+--- a/src/formulations/HCurl/hcurl_formulation.cpp
++++ b/src/formulations/HCurl/hcurl_formulation.cpp
+@@ -72,7 +72,7 @@ HCurlFormulation::ConstructJacobianPreconditioner()
+   auto precond =
+       std::make_shared<mfem::HypreAMS>(GetProblem()->GetEquationSystem()->_test_pfespaces.at(0));
+ 
+-  precond->SetSingularProblem();
++//  precond->SetSingularProblem();
+   precond->SetPrintLevel(-1);
+ 
+   GetProblem()->_jacobian_preconditioner = precond
+
