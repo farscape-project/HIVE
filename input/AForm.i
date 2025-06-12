@@ -80,9 +80,8 @@
 
 [Functions]
   [ss316l-sigma-func]
-    type = PiecewiseLinear
-    data_file = ../matprops/steel_316L_electrical_conductivity.csv
-    format = columns
+    type = ConstantFunction
+    value = ${steel_econductivity}
   []
 []
 
