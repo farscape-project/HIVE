@@ -16,7 +16,7 @@ protected:
   const VectorVariableValue & _electric_field;
 
   /// The electrical conductivity
-  const Real _sigma;
+  const MaterialProperty<Real> & _sigma;
 
   /// Time interval after which the kernel starts computing
   const Real _skip;
