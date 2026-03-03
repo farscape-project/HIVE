@@ -11,6 +11,11 @@
 []
 
 [AuxVariables]
+  [T]
+    family = LAGRANGE
+    order = FIRST
+    initial_condition = ${room_temperature}
+  []
   [V]
     family = LAGRANGE
     order = FIRST
@@ -53,9 +58,9 @@
     block = vacuum_region
   []
   [dAdt_target]
-    type = CoefVectorTimeDerivative
+    type = MatVectorTimeDerivative
     variable = A
-    coeff = ${steel_econductivity}
+    material = "electric_conductivity"
     block = target
   []
   [dAdt_coil_vacuum]
@@ -73,12 +78,41 @@
   []
 []
 
+[Functions]
+  [ss316l-sigma-func]
+    type = ConstantFunction
+    value = ${steel_econductivity}
+  []
+[]
+
+
+[Materials]
+  [steel-sigma]
+    type = CoupledValueFunctionMaterial
+    v = T
+    prop_name = "electric_conductivity"
+    function = ss316l-sigma-func
+    block = "target"
+  []
+  [copper]
+    type = GenericConstantMaterial
+    prop_names =  'electric_conductivity'
+    prop_values = '${copper_econductivity}'
+    block = 'coil'
+  []
+  [vacuum]
+    type = GenericConstantMaterial
+    prop_names =  'electric_conductivity'
+    prop_values = '${vacuum_econductivity}'
+    block = 'vacuum_region'
+  []
+[]
+
 [AuxKernels]
   [P]
     type = JouleHeatingAux
     variable = P
     vector_potential = A
-    sigma = ${steel_econductivity}
     skip = ${skip_t_af}
     block = target
     execute_on = timestep_end
